@@ -1,25 +1,26 @@
 # DIY GSM Cell Tower Using Yate and Yate-BTS 
 By: Sean Walker, Abby Conoyer, Cristin Durbin
+```
+This guide explains the intricacies involved in establishing a personal cell tower. Using Ubuntu, Open Source Applications, and some specialized hardware,  we explain how one can go about connecting Unlocked-GSM phones to a personal tower. Hence, alleviating the need for a cellular service provider.
+```
+**CAUTION: This project was strictly performed in an educational environment. Pursuing this project as a means of malintent is strictly prohibited by federal law. If one chooses to channel promiscuous mode, they choose to do so at their own risk. Consider this a warning. We will not be held responsible.
+```
+Disclaimer: Continue with this tutorial if and only if the intended use is confined to an institutional domain. The legal consequences should also be considered. 
+```
+### Materials needed for this project:
 
-This guide explains the intricacies involved in establishing a personal cell tower. Using Ubuntu, Open Source Applications, and some specialized hardware, we explain how one can go about connecting Unlocked-GSM phones to a personal tower. Hence, alleviating the need for a cellular service provider.
+BladeRF x40 ($420)
+Host running ubuntu 16.4 32-bit
+2 GSM-compatible phones
+Programmable Sim Cards (around $10)
 
-#### CAUTION: This project was strictly performed in an educational environment. Pursuing this project as a means of malintent is strictly prohibited by federal law. If one chooses to channel promiscuous mode, they choose to do so at their own risk. Consider this a warning. We will not be held responsible.
-
-#### Disclaimer: Continue with this tutorial if and only if the intended use is confined to an institutional domain. The legal consequences should also be considered. 
-
-Materials needed for this project:
--	BladeRF x40 ($420)
--	Host running ubuntu 16.4 32-bit
--	2 GSM-compatible phones
--	Programmable Sim Cards (around $10)
-
-## Software 
+### Software 
 Please begin by downloading Ubuntu 16.4 on a flashdrive. It is crucial that the image grabbed is compatible with the host environment. Since we are using a 32 bit laptop, we installed the 32 bit operating system. However, if your machine is 64 bit, opt to place the 64 bit image on the flash drive instead.
 
 After verifying that the appropriate image resides on the bootable USB, or flash drive, connect the USB to one of the host’s many peripheral ports. Then move the Ubuntu operating system from the USB device to the local host. Follow the prompts provided by the install-assistant. Once the configurations have been made and Ubuntu has been stood up on the host, safely eject the USB drive from the laptop. 
- 
-Now that Ubuntu has been installed on the host, open the terminal. We will begin installing the dependencies needed by our tower. In order to install the first dependency, type the following command from the terminal: 
 ```
+Now that Ubuntu has been installed on the host, open the terminal. We will begin installing the dependencies needed by our tower. In order to install the first dependency, type the following command from the terminal: 
+
 sudo apt-get install libusb-1.0-0-dev 
 sudo apt-get install git 
 sudo apt-get install autoconf
@@ -37,6 +38,7 @@ While in this new directory, let's call it Project, download the FPGA and the fi
 wget https://www.nuand.com/fpga/v0.1.2/hostedx40.rbf //BladeRF FPGA 0.1.2
 wget https://www.nuand.com/fx3/bladeRF_fw_v1.6.1.img //BladeRF Firmware 1.6.1
 
+```
 The next step is to install the yate and yate-bts packages. If you choose to forgo our versions used, understand that you will have to play around with the version numbers of Yate and YateBTS to see which ones are compatible.  With help from the guys over at  https://github.com/security-geeks/evilbts we were able to obtain the latest compatible versions. You can download the two packages here. Or pay a visit to the security geek’s github-https://github.com/security-geeks/evilbts. This file is of type tarball. As a result, we will use the command tar xvzf “filename” in order to extract its contents. Upon doing so, you will see a folder called evilbts. Now use the cd command to examine its contents.
 
 cd evilbts 
@@ -60,8 +62,9 @@ sudo ldconfig
 cd ..
 
 Either process will take a few minutes to complete. However, once they do, you’ll have everything installed on your system.
-
-Configuration 
+```
+## Configuration 
+```
 The  configurations are the most important part of the project. During this section we will configure the BladeRF so that it works with GSM phones. In order to do this we need to modify a file residing in the yate directory. In order to access this file, we will need to follow its path. Perform the following:
 
 	cd /usr/local/etc/yate
@@ -79,7 +82,7 @@ Identity.MNC=YOUR_OPERATOR_MNC (in the USE is 01)
 Identity.shortName=MyEvilBTS
 Radio.PowerManger.MaxAttenDB=35
 Radio.PowerManger.MinAttenDB=35
-
+```
 Save the contents of the text file. Once the options have been saved, close the text editor. If you are looking for values other than those of the United States, visit this link to obtain that MCC and MNC information. 
 
 **NOTE- We couldn’t find the Identity.shortName variable in our ybts.conf file. If it isn’t readily apparent in yours, skip said field. It does not affect the project.**
@@ -95,7 +98,7 @@ The regexp will retain the list of authorized devices able to connect. We left t
 
 **NOTE: By default the regexp value populates to .* mode. This is what many deem promiscuous mode. Promiscuous mode insinuates that every nearby phone will connect to the tower. Although promiscuous mode is highly entertaining, it is also highly illegal.**
 
-Start Broadcasting 
+## Start Broadcasting 
 
 If you have made it this far, you are ready to broadcast. In order to start broadcasting go to the command prompt and type:
 
@@ -110,12 +113,12 @@ MBTS ready
 
 The program will begin aggregating time stamps. 
 
- 
+
 
 **NOTE-If you have trouble broadcasting at this point, look to the BladeRF. Check to see if there are three green dots statically staying on. If this is the case, remove the cables from the Blade hence ceasing power. Then reinsert the cables and run the sudo yate -s  command again **
 Testing the BladeRF tower
 In the current configuration, the wildcard configuration, any GSM phone will connect to the tower if they are close  enough. You can expect your device to connect within 5-10 minutes. Once granted a connection, you will get a welcome message. Welcoming you to the network, this message identifies your phone number. You will exchange this with the other users on the network to exchange text messages and establish phone calls.
- 
+
 
 Programing a Sim Card  
 Before you can connect to the tower, you must have a compatible SIM card. If your device is locked by your cell phone provider, you must program your own SIM. You will program the SIM using an open source tool called PySIM. Store these files in their own directory. In other words, perform a 
@@ -149,20 +152,18 @@ IMPORTANT: After three failed attempts of trying to program a SIM’s ADM key, t
 
 You can now place this SIM in any GSM compatible phone and the SIM be recognized.  If your BladeRF tower is transmitting, you can expect the newly programmed SIM/Cellular combo to connect within five to ten minutes.
 Testing the Sim Cards with the BladeRF tower 
-
  
 
- 
 
 As demonstrated in the following images, we were able to connect multiple devices to the cellular network. We were prompted with a welcome message which assigned us our phone number. We texted our environment by exchanging text messages and exchanging phone calls.
 
 We started simple first testing a text message. The number my device was assigned was 0010024384. Exchanging this phone number with my companion, they sent me a text message:
 
- 
+
 
 
 **NOTE: We found it easiest to perform this lab on old models of GSM. Unfortunately, many new phones come locked by the cell-phone provider. This inhibits one from equipping the phone with any SIM other than the one tailored to the cell provider. If your phone is locked by a cell-phone provider, best plan of action is to contact them requesting an unlock code. This would allow you to operate off your own sim card.**
- 
+
 
 
 Having verified the text message was a success, we attempted a phone call. We migrated to opposites of the room to ensure we didn’t talk over ourselves.
@@ -171,14 +172,14 @@ Having verified the text message was a success, we attempted a phone call. We mi
 
 Dialing the number of another comrade on the network, we were able to establish a call.
 
- 
+
 
 As verified by the screenshots, the setup is complete. You should be able to replicate all that we’ve depicted right here. Enjoy connecting GSM phones and continue experimenting with the capacity of the cellular network! 
 
 Two resources we found to be incredibly useful were those listed below. Fortunately, we weren’t the first ones to conquer this endeavor. 
 
 
-References
+### References
 
 https://www.evilsocket.net/2016/03/31/how-to-build-your-own-rogue-gsm-bts-for-fun-and-profit/ 
     
