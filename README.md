@@ -32,7 +32,7 @@ After you establish a directory on the desktop, use the terminal, or the gui, to
 
 While in the Desktop directory, type ls into the terminal and press enter. This depicts the files residing in Desktop. Here you should see the directory you just created. Now use the cd command to transverse into that directory.
 ```
-	cd NAME_OF_NEW_DIRECTORY {enter}
+cd NAME_OF_NEW_DIRECTORY {enter}
 ```
 While in this new directory, let's call it Project, download the FPGA and the firmware files which support the bladeRF. In order to extract these files, type the following commands and press enter. **NOTE-The // signify comments these are not to be included in the commands. These are there for reference only**
 ```
@@ -122,7 +122,7 @@ Testing the BladeRF tower
 In the current configuration, the wildcard configuration, any GSM phone will connect to the tower if they are close  enough. You can expect your device to connect within 5-10 minutes. Once granted a connection, you will get a welcome message. Welcoming you to the network, this message identifies your phone number. You will exchange this with the other users on the network to exchange text messages and establish phone calls.
 
 
-Programing a Sim Card  
+## Programing a Sim Card  
 Before you can connect to the tower, you must have a compatible SIM card. If your device is locked by your cell phone provider, you must program your own SIM. You will program the SIM using an open source tool called PySIM. Store these files in their own directory. In other words, perform a 
 ```
 mkdir PySIM
