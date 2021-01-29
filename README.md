@@ -62,9 +62,9 @@ sudo ldconfig
 cd ..
 ```
 Either process will take a few minutes to complete. However, once they do, you’ll have everything installed on your system.
-```
+
 ## Configuration 
-```
+
 The  configurations are the most important part of the project. During this section we will configure the BladeRF so that it works with GSM phones. In order to do this we need to modify a file residing in the yate directory. In order to access this file, we will need to follow its path. Perform the following:
 ```
 cd /usr/local/etc/yate
